@@ -8,6 +8,7 @@ import '/widgets/empty_devices/empty_devices_widget.dart';
 import '/widgets/strength_indicator/strength_indicator_widget.dart';
 import 'dart:math';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/permissions_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -44,6 +45,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await requestPermission(bluetoothPermission);
       _model.isBluetoothEnabled = widget!.isBTEnabled;
       safeSetState(() {});
       if (_model.isBluetoothEnabled) {
