@@ -68,7 +68,9 @@ class _DisplayReceivedDataWidgetState extends State<DisplayReceivedDataWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Received data',
+          FFLocalizations.of(context).getText(
+            '2r668gbs' /* Received data */,
+          ),
           style: FlutterFlowTheme.of(context).titleMedium.override(
                 fontFamily: 'Inter',
                 color: FlutterFlowTheme.of(context).primaryText,

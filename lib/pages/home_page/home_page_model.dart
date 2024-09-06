@@ -56,7 +56,7 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   // Stores action output result for [Custom Action - getConnectedDevices] action in Icon widget.
   List<BTDeviceStruct>? fetchedConnectedDevicesCopy;
   // Stores action output result for [Custom Action - findDevices] action in Icon widget.
-  List<BTDeviceStruct>? fetchedDevicesCopy;
+  List<BTDeviceStruct>? findDeviceOut;
   // Stores action output result for [Custom Action - connectDevice] action in ScannedDeviceTile widget.
   bool? hasWrite;
 
