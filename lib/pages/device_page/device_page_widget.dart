@@ -187,7 +187,9 @@ class _DevicePageWidgetState extends State<DevicePageWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'You can send data to the connected device and receive data back from it.',
+                  FFLocalizations.of(context).getText(
+                    'vbycgw54' /* You can send data to the conne... */,
+                  ),
                   style: FlutterFlowTheme.of(context).labelMedium.override(
                         fontFamily: 'Inter',
                         letterSpacing: 0.0,
@@ -208,7 +210,9 @@ class _DevicePageWidgetState extends State<DevicePageWidget> {
                             autofocus: false,
                             obscureText: false,
                             decoration: InputDecoration(
-                              hintText: 'Enter data to send...',
+                              hintText: FFLocalizations.of(context).getText(
+                                's51h4vc4' /* Enter data to send... */,
+                              ),
                               hintStyle: FlutterFlowTheme.of(context)
                                   .labelLarge
                                   .override(

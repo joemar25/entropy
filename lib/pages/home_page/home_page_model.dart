@@ -8,6 +8,7 @@ import '/widgets/empty_devices/empty_devices_widget.dart';
 import '/widgets/strength_indicator/strength_indicator_widget.dart';
 import 'dart:math';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/permissions_util.dart';
 import 'home_page_widget.dart' show HomePageWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -56,7 +57,7 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   // Stores action output result for [Custom Action - getConnectedDevices] action in Icon widget.
   List<BTDeviceStruct>? fetchedConnectedDevicesCopy;
   // Stores action output result for [Custom Action - findDevices] action in Icon widget.
-  List<BTDeviceStruct>? fetchedDevicesCopy;
+  List<BTDeviceStruct>? findDeviceOut;
   // Stores action output result for [Custom Action - connectDevice] action in ScannedDeviceTile widget.
   bool? hasWrite;
 

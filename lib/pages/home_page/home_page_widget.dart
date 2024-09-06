@@ -8,6 +8,7 @@ import '/widgets/empty_devices/empty_devices_widget.dart';
 import '/widgets/strength_indicator/strength_indicator_widget.dart';
 import 'dart:math';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/permissions_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -44,6 +45,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await requestPermission(bluetoothPermission);
       _model.isBluetoothEnabled = widget!.isBTEnabled;
       safeSetState(() {});
       if (_model.isBluetoothEnabled) {
@@ -113,7 +115,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           automaticallyImplyLeading: false,
           title: Text(
-            'Bluetooth',
+            FFLocalizations.of(context).getText(
+              'eeneklu6' /* Bluetooth */,
+            ),
             style: FlutterFlowTheme.of(context).titleLarge.override(
                   fontFamily: 'Inter',
                   letterSpacing: 0.0,
@@ -135,7 +139,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                   if (!widget!.isBTEnabled)
                     Expanded(
                       child: Text(
-                        'Enable your device bluetooth to scan for nearby devices.',
+                        FFLocalizations.of(context).getText(
+                          '9srb5bez' /* Enable your device bluetooth t... */,
+                        ),
                         style: FlutterFlowTheme.of(context).bodyLarge.override(
                               fontFamily: 'Inter',
                               color: FlutterFlowTheme.of(context).secondaryText,
@@ -191,7 +197,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           children: [
                                             Expanded(
                                               child: Text(
-                                                'Connected Devices',
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  'wukinpk3' /* Connected Devices */,
+                                                ),
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyLarge
@@ -207,7 +216,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                     .isFetchingConnectedDevices ??
                                                 true)
                                               Text(
-                                                'Finding...',
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  'fa8hkdgd' /* Finding... */,
+                                                ),
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodySmall
@@ -453,7 +465,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                             children: [
                                               Expanded(
                                                 child: Text(
-                                                  'Devices',
+                                                  FFLocalizations.of(context)
+                                                      .getText(
+                                                    'jxyzgyki' /* Devices */,
+                                                  ),
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyLarge
@@ -491,7 +506,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                         .toList()
                                                         .cast<BTDeviceStruct>();
                                                     safeSetState(() {});
-                                                    _model.fetchedDevicesCopy =
+                                                    _model.findDeviceOut =
                                                         await actions
                                                             .findDevices();
                                                     _model.isFetchingDevices =
@@ -514,7 +529,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                 ),
                                               if (_model.isFetchingDevices)
                                                 Text(
-                                                  'Scanning...',
+                                                  FFLocalizations.of(context)
+                                                      .getText(
+                                                    '4qkf2cyv' /* Scanning... */,
+                                                  ),
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodySmall
@@ -765,7 +783,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         child: Align(
                           alignment: AlignmentDirectional(0.0, 0.0),
                           child: Text(
-                            'Turn on bluetooth to connect with any device',
+                            FFLocalizations.of(context).getText(
+                              'f69t8d2v' /* Turn on bluetooth to connect w... */,
+                            ),
                             style: FlutterFlowTheme.of(context)
                                 .labelMedium
                                 .override(

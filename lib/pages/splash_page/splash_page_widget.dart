@@ -63,7 +63,9 @@ class _SplashPageWidgetState extends State<SplashPageWidget> {
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           automaticallyImplyLeading: false,
           title: Text(
-            'Bluetooth',
+            FFLocalizations.of(context).getText(
+              'p0kxo077' /* Bluetooth */,
+            ),
             style: FlutterFlowTheme.of(context).titleLarge.override(
                   fontFamily: 'Inter',
                   letterSpacing: 0.0,
@@ -88,7 +90,9 @@ class _SplashPageWidgetState extends State<SplashPageWidget> {
                   child: Align(
                     alignment: AlignmentDirectional(0.0, 0.0),
                     child: Text(
-                      'Fetching bluetooth status...',
+                      FFLocalizations.of(context).getText(
+                        'b4zp2v8u' /* Fetching bluetooth status... */,
+                      ),
                       style: FlutterFlowTheme.of(context).labelMedium.override(
                             fontFamily: 'Inter',
                             letterSpacing: 0.0,

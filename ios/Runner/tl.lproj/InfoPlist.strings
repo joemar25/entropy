@@ -1,0 +1,2 @@
+NSBluetoothAlwaysUsageDescription = "Kinakailangan ang pahintulot ng Bluetooth upang kumonekta sa isang device.";
+NSBluetoothPeripheralUsageDescription = "Kinakailangan ang pahintulot ng Bluetooth para kumonekta sa isang device.";
