@@ -15,16 +15,15 @@ Future<String?> receiveData(BTDeviceStruct deviceInfo) async {
     final services = await device.discoverServices();
     for (BluetoothService service in services) {
       for (BluetoothCharacteristic characteristic in service.characteristics) {
-        final isRead = characteristic.properties.read;
-        final isNotify = characteristic.properties.notify;
-        if (isRead && isNotify) {
+        if (characteristic.properties.read &&
+            characteristic.properties.notify) {
           final value = await characteristic.read();
           return String.fromCharCodes(value);
         }
       }
     }
   } catch (e) {
-    debugPrint(e.toString());
+    print('Error receiving data: $e');
   }
   return null;
 }

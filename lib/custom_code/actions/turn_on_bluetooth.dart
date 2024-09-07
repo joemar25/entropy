@@ -9,7 +9,10 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
-Future<bool> isBluetoothEnabled() async {
-  final adapterState = await FlutterBluePlus.adapterState.first;
-  return adapterState == BluetoothAdapterState.on;
+Future turnOnBluetooth() async {
+  try {
+    await FlutterBluePlus.turnOn();
+  } catch (e) {
+    print('Failed to turn on Bluetooth: $e');
+  }
 }

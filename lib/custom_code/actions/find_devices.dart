@@ -8,34 +8,29 @@ import 'package:flutter/material.dart';
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'dart:async';
 
 Future<List<BTDeviceStruct>> findDevices() async {
-  final flutterBlue = FlutterBluePlus.instance;
   List<BTDeviceStruct> devices = [];
   try {
-    flutterBlue.scanResults.listen((results) {
-      List<ScanResult> scannedDevices = [];
+    await FlutterBluePlus.startScan(timeout: const Duration(seconds: 5));
+    StreamSubscription subscription =
+        FlutterBluePlus.scanResults.listen((results) {
+      devices.clear();
       for (ScanResult r in results) {
-        if (r.device.name.isNotEmpty) {
-          scannedDevices.add(r);
+        if (r.device.platformName.isNotEmpty) {
+          devices.add(BTDeviceStruct(
+            name: r.device.platformName,
+            id: r.device.remoteId.toString(),
+            rssi: r.rssi,
+          ));
         }
       }
-      scannedDevices.sort((a, b) => b.rssi.compareTo(a.rssi));
-      devices.clear();
-      scannedDevices.forEach((deviceResult) {
-        devices.add(BTDeviceStruct(
-          name: deviceResult.device.name,
-          id: deviceResult.device.id.toString(),
-          rssi: deviceResult.rssi,
-        ));
-      });
+      devices.sort((a, b) => b.rssi.compareTo(a.rssi));
     });
-    final isScanning = flutterBlue.isScanningNow;
-    if (!isScanning) {
-      await flutterBlue.startScan(
-        timeout: const Duration(seconds: 5),
-      );
-    }
+    await Future.delayed(const Duration(seconds: 5));
+    await subscription.cancel();
+    await FlutterBluePlus.stopScan();
   } catch (e) {
     debugPrint(e.toString());
   }

@@ -1,2 +1,3 @@
 NSBluetoothAlwaysUsageDescription = "Bluetooth permission is required to connect with a device.";
 NSBluetoothPeripheralUsageDescription = "Bluetooth permission is required to connect with a device.";
+NSLocationWhenInUseUsageDescription = "Location permission is required to connect with a device.";

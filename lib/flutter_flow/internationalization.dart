@@ -173,6 +173,25 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'tl': 'Bahay',
     },
   },
+  // Onboarding
+  {
+    'll6ldbmb': {
+      'en': 'Welcome',
+      'tl': '',
+    },
+    '45eiu78z': {
+      'en': 'Turn on Bluetooth',
+      'tl': '',
+    },
+    'jp8t71vu': {
+      'en': 'Go to Splash',
+      'tl': '',
+    },
+    'j24crses': {
+      'en': 'Home',
+      'tl': 'Bahay',
+    },
+  },
   // DisplayReceivedData
   {
     '2r668gbs': {
@@ -191,6 +210,10 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Bluetooth permission is required to connect with a device.',
       'tl':
           'Kinakailangan ang pahintulot ng Bluetooth para kumonekta sa isang device.',
+    },
+    'urjl7axa': {
+      'en': 'Location permission is required to connect with a device.',
+      'tl': '',
     },
     'f5gb131z': {
       'en': '',

@@ -7,15 +7,14 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import '/flutter_flow/custom_functions.dart';
-
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
-Future disconnectDevice(BTDeviceStruct deviceInfo) async {
-  final device = BluetoothDevice.fromId(deviceInfo.id, name: deviceInfo.name);
+Future<void> disconnectDevice(BTDeviceStruct deviceInfo) async {
+  final device = BluetoothDevice.fromId(deviceInfo.id);
   try {
     await device.disconnect();
+    print('Disconnected from device: ${deviceInfo.name}');
   } catch (e) {
-    debugPrint(e.toString());
+    print('Error disconnecting from device: $e');
   }
 }

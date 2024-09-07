@@ -10,18 +10,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 Future<List<BTDeviceStruct>> getConnectedDevices() async {
-  final flutterBlue = FlutterBluePlus.instance;
-  final connectedDevices = await flutterBlue.connectedDevices;
+  final connectedDevices = FlutterBluePlus.connectedDevices;
   List<BTDeviceStruct> devices = [];
   try {
-    for (int i = 0; i < connectedDevices.length; i++) {
-      final deviceResult = connectedDevices[i];
-      final deviceState = await deviceResult.state.first;
-      if (deviceState == BluetoothDeviceState.connected) {
-        final deviceRssi = await deviceResult.readRssi();
+    for (BluetoothDevice device in connectedDevices) {
+      if (await device.connectionState.first ==
+          BluetoothConnectionState.connected) {
+        final deviceRssi = await device.readRssi();
         devices.add(BTDeviceStruct(
-          name: deviceResult.name,
-          id: deviceResult.id.toString(),
+          name: device.platformName,
+          id: device.remoteId.toString(),
           rssi: deviceRssi,
         ));
       }

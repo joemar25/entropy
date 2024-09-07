@@ -9,19 +9,18 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
-Future sendData(BTDeviceStruct deviceInfo, String data) async {
+Future<void> sendData(BTDeviceStruct deviceInfo, String data) async {
   try {
     final device = BluetoothDevice.fromId(deviceInfo.id);
     final services = await device.discoverServices();
     for (BluetoothService service in services) {
       for (BluetoothCharacteristic characteristic in service.characteristics) {
-        final isWrite = characteristic.properties.write;
-        if (isWrite) {
+        if (characteristic.properties.write) {
           await characteristic.write(data.codeUnits);
         }
       }
     }
   } catch (e) {
-    debugPrint(e.toString());
+    print('Error sending data: $e');
   }
 }

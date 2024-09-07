@@ -52,6 +52,8 @@
     <string>Bluetooth permission is required to connect with a device.</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
     <string>Bluetooth permission is required to connect with a device.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>Location permission is required to connect with a device.</string>
 
 
 	<key>UILaunchStoryboardName</key>

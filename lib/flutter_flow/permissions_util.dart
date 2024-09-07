@@ -13,6 +13,7 @@ const kPermissionStateToBool = {
 };
 
 final bluetoothPermission = Permission.bluetooth;
+final locationPermission = Permission.location;
 
 Future<bool> getPermissionStatus(Permission setting) async {
   final status = await setting.status;
