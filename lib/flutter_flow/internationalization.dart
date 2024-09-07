@@ -220,16 +220,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
           'Bluetooth scan permission is required to find nearby Bluetooth devices.',
       'tl': '',
     },
-    'j24az3jp': {
-      'en':
-          'Bluetooth scan pernission is required to find nearby Bluetooth devices.',
-      'tl': '',
-    },
-    '153w1cqd': {
-      'en':
-          'Bluetooth scan pemission is required to find nearby Bluetooth devices.',
-      'tl': '',
-    },
     'f5gb131z': {
       'en': '',
       'tl': '',
