@@ -2,10 +2,9 @@ import './globals.css'
 
 import localFont from 'next/font/local'
 
-import { ThemeProvider } from '@/components/provider/theme-provider'
-import { Toaster } from 'sonner'
-import { ThemeChange } from '@/components/custom/theme/theme-change'
 import { Metadata } from 'next'
+import { Toaster } from 'sonner'
+import { ThemeProvider } from '@/components/provider/theme-provider'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -40,13 +39,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className='relative'>
-            <div className='absolute top-4 right-4'>
-              <ThemeChange />
-            </div>
-            {children}
-          </div>
-          <Toaster richColors />
+          {children}
+          <Toaster
+            // position="top-left"
+            richColors
+            closeButton
+          />
         </ThemeProvider>
       </body>
     </html>
