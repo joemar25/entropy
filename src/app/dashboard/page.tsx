@@ -3,6 +3,7 @@
 import type { ChartDataPoint, DeviceData } from '@/types/device'
 
 import { toast } from 'sonner'
+import { RefreshCw } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Badge } from '@/components/ui/badge'
@@ -12,7 +13,8 @@ import { useDeviceCode } from '@/hooks/device/use-device-code'
 import { useDeviceData } from '@/hooks/device/use-device-data'
 import { DashboardChart } from '@/components/dashboard/chart'
 import { MetricsGrid } from '@/components/dashboard/metrics-grid'
-import { RefreshCw } from 'lucide-react'
+import { DashboardBarChart } from '@/components/dashboard/bar-chart'
+import { DashboardAreaChart } from '@/components/dashboard/area-chart'
 
 export default function Dashboard() {
     const router = useRouter()
@@ -121,6 +123,8 @@ export default function Dashboard() {
                         timeFilters={timeFilters}
                         onRefresh={refreshData}
                     />
+                    <DashboardBarChart data={chartData} />
+                    <DashboardAreaChart data={chartData} />
                     <MetricsGrid
                         data={data}
                         getCurrentValueAction={getCurrentValue}
