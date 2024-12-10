@@ -119,11 +119,13 @@ export default function Dashboard() {
                         timeFilter={timeFilter}
                         onTimeFilterChangeAction={setTimeFilter}
                         timeFilters={timeFilters}
+                        onRefresh={refreshData}
                     />
                     <MetricsGrid
                         data={data}
                         getCurrentValueAction={getCurrentValue}
                         getStatusBadgeAction={getStatusBadge}
+                        onRefresh={refreshData}
                     />
                 </div>
             )}

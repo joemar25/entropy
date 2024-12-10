@@ -1,13 +1,29 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, TooltipProps } from 'recharts'
+import {
+    LineChart,
+    Line,
+    XAxis,
+    YAxis,
+    Tooltip,
+    ResponsiveContainer,
+    TooltipProps,
+    ReferenceArea,
+    CartesianGrid,
+    Legend
+} from 'recharts'
 import { Button } from '@/components/ui/button'
 import { RefreshCw, Maximize2, Minimize2 } from 'lucide-react'
 import type { ChartDataPoint } from '@/types/device'
 import styles from './chart.module.css'
+
+interface ZoomEvent {
+    activeLabel?: string
+    dataKey?: string
+}
 
 interface ChartProps {
     data: ChartDataPoint[]
@@ -28,6 +44,16 @@ interface CustomTooltipProps extends TooltipProps<number, string> {
     label?: string
 }
 
+interface ZoomState {
+    left: string | number
+    right: string | number
+    refAreaLeft: string
+    refAreaRight: string
+    top: string | number
+    bottom: string | number
+    animation: boolean
+}
+
 const metrics = [
     { key: 'temperature', color: '#06b6d4', name: 'Temperature (°C)', dotClass: styles['tooltipDot--temperature'] },
     { key: 'humidity', color: '#8b5cf6', name: 'Humidity (%)', dotClass: styles['tooltipDot--humidity'] },
@@ -45,9 +71,56 @@ export function DashboardChart({
     timeFilter,
     onTimeFilterChangeAction,
     timeFilters,
-    onRefresh
+    onRefresh,
 }: ChartProps) {
     const [isExpanded, setIsExpanded] = useState(false)
+    const [highlightedMetric] = useState<string | null>(null)
+    const [zoomState, setZoomState] = useState<ZoomState>({
+        left: 'dataMin',
+        right: 'dataMax',
+        refAreaLeft: '',
+        refAreaRight: '',
+        top: 'dataMax',
+        bottom: 'dataMin',
+        animation: true
+    })
+
+    const handleZoomStart = useCallback((event: ZoomEvent) => {
+        const label = event?.activeLabel
+        if (!label) return
+
+        setZoomState(prev => ({
+            ...prev,
+            refAreaLeft: label
+        }))
+    }, [])
+
+    const handleZoomMove = useCallback((event: ZoomEvent) => {
+        const label = event?.activeLabel
+        if (!label || !zoomState.refAreaLeft) return
+
+        setZoomState(prev => ({
+            ...prev,
+            refAreaRight: label
+        }))
+    }, [zoomState.refAreaLeft])
+
+    const handleZoomEnd = useCallback(() => {
+        if (!zoomState.refAreaLeft || !zoomState.refAreaRight) {
+            return
+        }
+
+        const left = zoomState.refAreaLeft
+        const right = zoomState.refAreaRight
+
+        setZoomState(prev => ({
+            ...prev,
+            refAreaLeft: '',
+            refAreaRight: '',
+            left: left > right ? right : left,
+            right: left > right ? left : right
+        }))
+    }, [zoomState])
 
     const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
         if (!active || !payload || !payload.length || !label) {
@@ -138,7 +211,11 @@ export function DashboardChart({
                             <LineChart
                                 data={data}
                                 margin={{ top: 20, right: 30, left: 20, bottom: 70 }}
+                                onMouseDown={handleZoomStart}
+                                onMouseMove={handleZoomMove}
+                                onMouseUp={handleZoomEnd}
                             >
+                                <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis
                                     dataKey='time'
                                     stroke='#888888'
@@ -148,6 +225,7 @@ export function DashboardChart({
                                     height={70}
                                     interval={0}
                                     tick={{ fill: '#888888' }}
+                                    domain={[zoomState.left, zoomState.right]}
                                 />
                                 <YAxis
                                     yAxisId="left"
@@ -173,10 +251,20 @@ export function DashboardChart({
                                         stroke={metric.color}
                                         yAxisId="left"
                                         dot={false}
-                                        strokeWidth={1.5}
+                                        strokeWidth={highlightedMetric === metric.key ? 3 : 1.5}
+                                        opacity={highlightedMetric ? (highlightedMetric === metric.key ? 1 : 0.3) : 1}
                                         activeDot={{ r: 4, strokeWidth: 0 }}
+                                        className={styles.chartLine}
                                     />
                                 ))}
+                                {zoomState.refAreaLeft && zoomState.refAreaRight && (
+                                    <ReferenceArea
+                                        yAxisId="left"
+                                        x1={zoomState.refAreaLeft}
+                                        x2={zoomState.refAreaRight}
+                                        strokeOpacity={0.3}
+                                    />
+                                )}
                             </LineChart>
                         </ResponsiveContainer>
                     ) : (

@@ -73,3 +73,11 @@
 .expandedCard {
   @apply fixed inset-4 z-50 bg-background shadow-lg;
 }
+
+.chartLine {
+  @apply cursor-pointer transition-all duration-200;
+}
+
+.chartLine:hover {
+  @apply stroke-[3px];
+}
