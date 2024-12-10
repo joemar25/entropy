@@ -1,0 +1,1 @@
+export const VALID_DEVICE_CODES = ['demo', 'demo123', 'test', 'test456', 'device', 'device789'] 

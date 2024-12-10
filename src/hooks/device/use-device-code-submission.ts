@@ -1,11 +1,15 @@
+'use client'
+
 import { toast } from 'sonner'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useDeviceCode } from './use-device-code'
 
 export const useDeviceCodeSubmission = () => {
     const [deviceCode, setDeviceCode] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
+    const { setDeviceCode: setStoredDeviceCode } = useDeviceCode()
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -21,21 +25,27 @@ export const useDeviceCodeSubmission = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ deviceCode }),
+                body: JSON.stringify({ deviceCode: deviceCode.trim() }),
             })
 
             const data = await response.json()
 
             if (response.ok && data.success) {
+                setStoredDeviceCode(deviceCode.trim())
                 toast.success('Device code accepted')
-                localStorage.setItem('deviceCode', deviceCode)
                 router.push('/dashboard')
             } else {
-                toast.error(data.message || 'Invalid device code')
+                // Handle 401 and other errors
+                const errorMessage = response.status === 401
+                    ? 'Invalid device code'
+                    : data.message || 'Failed to verify device code'
+                toast.error(errorMessage)
+                setStoredDeviceCode(null)
             }
         } catch (error) {
             console.error('Error submitting device code:', error)
             toast.error('Failed to verify device code')
+            setStoredDeviceCode(null)
         } finally {
             setIsLoading(false)
         }

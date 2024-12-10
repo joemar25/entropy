@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server'
-
-// This would typically be replaced with a database query
-const VALID_DEVICE_CODES = ['demo', 'demo123', 'test', 'test456', 'device', 'device789']
+import { VALID_DEVICE_CODES } from '@/constants/device'
 
 export async function POST(request: Request) {
     try {

@@ -1,57 +1,59 @@
 'use client'
 
-import AboutContent from './home/about-content'
-
-import { motion } from 'framer-motion'
-import HomeContent from './home/home-content'
-import { HomeIcon, Users } from 'lucide-react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { HomeIcon, Users, LayoutDashboard } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { motion } from 'framer-motion'
 import { ThemeChange } from './theme/theme-change'
+import { useDeviceCode } from '@/hooks/device/use-device-code'
 
-type TabContent = {
-    content: React.ReactNode
-    icon: React.ReactNode
-}
+export function Header() {
+    const pathname = usePathname()
+    const { isAuthenticated } = useDeviceCode()
 
-type TabsType = {
-    [key: string]: TabContent
-}
+    const navItems = [
+        ...(isAuthenticated
+            ? [
+                {
+                    name: 'Dashboard',
+                    path: '/dashboard',
+                    icon: <LayoutDashboard className='w-4 h-4' />
+                }
+            ]
+            : [
+                {
+                    name: 'Home',
+                    path: '/',
+                    icon: <HomeIcon className='w-4 h-4' />
+                }
+            ]
+        ),
+        {
+            name: 'About',
+            path: '/about',
+            icon: <Users className='w-4 h-4' />
+        }
+    ]
 
-const tabs: TabsType = {
-    Home: {
-        content: <HomeContent />,
-        icon: <HomeIcon className='w-4 h-4' />
-    },
-    About: {
-        content: <AboutContent />,
-        icon: <Users className='w-4 h-4' />
-    },
-}
-
-type TabKeys = keyof typeof tabs
-
-interface HeaderProps {
-    activeTab: TabKeys
-    setActiveTab: (tab: TabKeys) => void
-}
-
-export function Header({ activeTab, setActiveTab }: HeaderProps) {
     return (
         <header className="flex justify-between items-center px-6 py-4 shadow-md sticky top-0 z-10 bg-background">
             <div className="inline-flex items-center rounded-lg bg-muted p-1.5 gap-2">
-                {(Object.keys(tabs) as TabKeys[]).map((tab) => (
-                    <div key={tab} className="relative">
+                {navItems.map((item) => (
+                    <div key={item.path} className="relative">
                         <Button
                             variant={'ghost'}
-                            onClick={() => setActiveTab(tab)}
+                            asChild
                             className="relative px-4 sm:px-8 py-2.5 flex items-center gap-2 transition-all duration-300"
                         >
-                            <span className="relative z-20 flex items-center gap-3">
-                                {tabs[tab].icon}
-                                <span className="hidden sm:inline">{tab}</span>
-                            </span>
+                            <Link href={item.path}>
+                                <span className="relative z-20 flex items-center gap-3">
+                                    {item.icon}
+                                    <span className="hidden sm:inline">{item.name}</span>
+                                </span>
+                            </Link>
                         </Button>
-                        {activeTab === tab && (
+                        {pathname === item.path && (
                             <motion.div
                                 layoutId="active-pill"
                                 className="absolute inset-0 bg-background rounded-md"
