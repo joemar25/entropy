@@ -39,22 +39,22 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="min-h-screen flex flex-col">
+          <div className='min-h-screen flex flex-col'>
             <Header />
-            <main className="flex-1 flex flex-col">
-              <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 max-w-7xl">
-                <div className="w-full space-y-4 sm:space-y-6 lg:space-y-8">
+            <main className='flex-1 flex flex-col'>
+              <div className='container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 max-w-7xl'>
+                <div className='w-full space-y-4 sm:space-y-6 lg:space-y-8'>
                   {children}
                 </div>
               </div>
             </main>
           </div>
           <Toaster
-            position="top-right"
+            position='top-right'
             richColors
             closeButton
-            theme="system"
-            className="toaster-override"
+            theme='system'
+            className='toaster-override'
           />
         </ThemeProvider>
       </body>
