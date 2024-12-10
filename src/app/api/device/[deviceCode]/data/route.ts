@@ -18,13 +18,26 @@ const generateDeviceData = (deviceCode: string): DeviceData => {
     try {
         const baseTemp = 20 + seededRandom(deviceCode) * 5
         const baseHumidity = 30 + seededRandom(deviceCode + '_humidity') * 20
-        const temp = baseTemp + (Math.random() * 2 - 1)
-        const humidity = baseHumidity + (Math.random() * 4 - 2)
+        const basePM25 = 10 + seededRandom(deviceCode + '_pm25') * 15
+        const baseVOC = 200 + seededRandom(deviceCode + '_voc') * 1000
+        const baseO3 = 30 + seededRandom(deviceCode + '_o3') * 40
+        const baseCO = 2 + seededRandom(deviceCode + '_co') * 4
+        const baseCO2 = 400 + seededRandom(deviceCode + '_co2') * 800
+        const baseNO2 = 20 + seededRandom(deviceCode + '_no2') * 40
+        const baseSO2 = 20 + seededRandom(deviceCode + '_so2') * 30
+
         const timestamp = new Date().toISOString()
 
         return {
-            temperature: [temp],
-            humidity: [humidity],
+            temperature: [baseTemp + (Math.random() * 2 - 1)],
+            humidity: [baseHumidity + (Math.random() * 4 - 2)],
+            pm25: [basePM25 + (Math.random() * 3 - 1.5)],
+            voc: [baseVOC + (Math.random() * 100 - 50)],
+            o3: [baseO3 + (Math.random() * 5 - 2.5)],
+            co: [baseCO + (Math.random() * 1 - 0.5)],
+            co2: [baseCO2 + (Math.random() * 50 - 25)],
+            no2: [baseNO2 + (Math.random() * 4 - 2)],
+            so2: [baseSO2 + (Math.random() * 4 - 2)],
             timestamp: [timestamp]
         }
     } catch (error) {
@@ -37,7 +50,7 @@ export async function GET(request: NextRequest) {
     try {
         // Get deviceCode from URL
         const url = new URL(request.url)
-        const deviceCode = url.pathname.split('/')[3] // Get deviceCode from path
+        const deviceCode = url.pathname.split('/')[3]
 
         // Validate device code
         if (!deviceCode || typeof deviceCode !== 'string') {

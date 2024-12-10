@@ -2,18 +2,19 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { HomeIcon, Users, LayoutDashboard } from 'lucide-react'
+import { HomeIcon, Users, LayoutDashboard, LogOut } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
+import { toast } from 'sonner'
 import { ThemeChange } from './theme/theme-change'
 import { useDeviceCode } from '@/hooks/device/use-device-code'
 
 export function Header() {
     const pathname = usePathname()
-    const { isAuthenticated } = useDeviceCode()
+    const { deviceCode, clearDeviceCode } = useDeviceCode()
 
     const navItems = [
-        ...(isAuthenticated
+        ...(deviceCode
             ? [
                 {
                     name: 'Dashboard',
@@ -35,6 +36,11 @@ export function Header() {
             icon: <Users className='w-4 h-4' />
         }
     ]
+
+    const handleLogout = () => {
+        clearDeviceCode()
+        toast.success('Successfully logged out')
+    }
 
     return (
         <header className='flex justify-between items-center px-6 py-4 shadow-md sticky top-0 z-10 bg-background'>
@@ -68,7 +74,18 @@ export function Header() {
                     </div>
                 ))}
             </div>
-            <ThemeChange />
+            <div className="flex items-center gap-2">
+                {deviceCode && (
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={handleLogout}
+                    >
+                        <LogOut className="h-4 w-4" />
+                    </Button>
+                )}
+                <ThemeChange />
+            </div>
         </header>
     )
 } 
