@@ -9,9 +9,9 @@ import { useRouter } from 'next/navigation'
 import { Badge } from '@/components/ui/badge'
 import { formatDateTime } from '@/utils/date'
 import { Button } from '@/components/ui/button'
+import { DashboardChart } from '@/components/dashboard/chart'
 import { useDeviceCode } from '@/hooks/device/use-device-code'
 import { useDeviceData } from '@/hooks/device/use-device-data'
-import { DashboardChart } from '@/components/dashboard/chart'
 import { MetricsGrid } from '@/components/dashboard/metrics-grid'
 import { DashboardBarChart } from '@/components/dashboard/bar-chart'
 import { DashboardAreaChart } from '@/components/dashboard/area-chart'
@@ -139,9 +139,9 @@ export default function Dashboard() {
 
 function LoadingState() {
     return (
-        <div className="flex items-center justify-center min-h-screen">
-            <div className="flex flex-col items-center gap-2">
-                <RefreshCw className="w-8 h-8 animate-spin" />
+        <div className='flex items-center justify-center min-h-screen'>
+            <div className='flex flex-col items-center gap-2'>
+                <RefreshCw className='w-8 h-8 animate-spin' />
                 <p>Loading dashboard...</p>
             </div>
         </div>
@@ -150,10 +150,10 @@ function LoadingState() {
 
 function ErrorState({ onRetry }: { onRetry: () => void }) {
     return (
-        <div className="flex items-center justify-center min-h-screen">
-            <div className="flex flex-col items-center gap-2 text-destructive">
+        <div className='flex items-center justify-center min-h-screen'>
+            <div className='flex flex-col items-center gap-2 text-destructive'>
                 <p>Error loading dashboard data</p>
-                <Button onClick={onRetry} variant="outline">
+                <Button onClick={onRetry} variant='outline'>
                     Try Again
                 </Button>
             </div>

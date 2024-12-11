@@ -1,16 +1,12 @@
 'use client'
 
-import { useState } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Thermometer, Droplets, Wind, RefreshCw } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import type { DeviceData } from '@/types/device'
-import {
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-} from "@/components/ui/dialog"
+
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Thermometer, Droplets, Wind, RefreshCw } from 'lucide-react'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 
 type MetricType = 'temperature' | 'humidity' | 'pm25' | 'voc' | 'o3' | 'co' | 'co2' | 'no2' | 'so2'
 
@@ -65,11 +61,11 @@ export function MetricsGrid({
                 <h2 className='text-lg font-semibold'>Current Readings</h2>
                 {onRefresh && (
                     <Button
-                        variant="outline"
-                        size="icon"
+                        variant='outline'
+                        size='icon'
                         onClick={onRefresh}
                     >
-                        <RefreshCw className="h-4 w-4" />
+                        <RefreshCw className='h-4 w-4' />
                     </Button>
                 )}
             </div>
@@ -103,17 +99,29 @@ export function MetricsGrid({
                 open={selectedMetric !== null}
                 onOpenChange={handleDialogClose}
             >
-                <DialogContent className="max-w-2xl">
+                <DialogContent className='max-w-2xl'>
                     <DialogHeader>
                         <DialogTitle>
                             {metrics.find(m => m.key === selectedMetric)?.label} Details
                         </DialogTitle>
                     </DialogHeader>
-                    <div className="py-4">
-                        <div className="text-4xl font-bold">
+                    <div className='py-4'>
+                        <div className='text-4xl font-bold'>
                             {selectedMetric && getCurrentValueAction(data, selectedMetric).toFixed(1)} {metrics.find(m => m.key === selectedMetric)?.unit}
                         </div>
-                        {/* Add more detailed information here if needed */}
+                        <div className='mt-4'>
+                            <p className='text-sm text-muted-foreground'>
+                                {selectedMetric === 'temperature' && 'Temperature indicates the current ambient temperature in degrees Celsius.'}
+                                {selectedMetric === 'humidity' && 'Humidity represents the amount of water vapor in the air as a percentage.'}
+                                {selectedMetric === 'pm25' && 'PM2.5 refers to particulate matter that is less than 2.5 micrometers in diameter, which can affect air quality and health.'}
+                                {selectedMetric === 'voc' && 'Volatile Organic Compounds (VOC) are organic chemicals that have a high vapor pressure at room temperature.'}
+                                {selectedMetric === 'o3' && 'Ozone (O3) is a gas composed of three oxygen atoms, often found in the Earth’s stratosphere.'}
+                                {selectedMetric === 'co' && 'Carbon Monoxide (CO) is a colorless, odorless gas that can be harmful when inhaled in large amounts.'}
+                                {selectedMetric === 'co2' && 'Carbon Dioxide (CO2) is a naturally occurring gas, also a byproduct of burning fossil fuels and biomass.'}
+                                {selectedMetric === 'no2' && 'Nitrogen Dioxide (NO2) is a reddish-brown gas with a characteristic sharp, biting odor and is a prominent air pollutant.'}
+                                {selectedMetric === 'so2' && 'Sulfur Dioxide (SO2) is a toxic gas with a pungent, irritating smell, and is released by volcanic activity and industrial processes.'}
+                            </p>
+                        </div>
                     </div>
                 </DialogContent>
             </Dialog>

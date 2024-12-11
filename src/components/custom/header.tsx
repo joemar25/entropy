@@ -74,14 +74,14 @@ export function Header() {
                     </div>
                 ))}
             </div>
-            <div className="flex items-center gap-2">
+            <div className='flex items-center gap-2'>
                 {deviceCode && (
                     <Button
-                        variant="ghost"
-                        size="icon"
+                        variant='ghost'
+                        size='icon'
                         onClick={handleLogout}
                     >
-                        <LogOut className="h-4 w-4" />
+                        <LogOut className='h-4 w-4' />
                     </Button>
                 )}
                 <ThemeChange />

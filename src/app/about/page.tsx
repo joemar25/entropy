@@ -107,7 +107,7 @@ export default function About() {
                         <span className='font-semibold'>Competition:</span> Nickel Asia Corporation (NAC) Innovation Challenge
                     </div>
                     <div>
-                        <span className='font-semibold'>Project Advisor:</span> Ma&apos;am Grace
+                        <span className='font-semibold'>Project Advisor:</span> Ma&aposam Grace
                     </div>
                 </CardContent>
             </Card>

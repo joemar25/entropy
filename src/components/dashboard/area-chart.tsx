@@ -1,30 +1,48 @@
 'use client'
 
-import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from 'recharts'
 import type { ChartDataPoint } from '@/types/device'
+
+import CustomTooltip from '@/components/ui/CustomTooltip'
+import ChartCard from '@/components/ui/ChartCard'
+
+import { useState } from 'react'
+import { styles } from '@/utils/styles'
+import { metrics } from '@/constants/metric'
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from 'recharts'
 
 interface AreaChartProps {
     data: ChartDataPoint[]
 }
 
 export function DashboardAreaChart({ data }: AreaChartProps) {
+    const [isExpanded, setIsExpanded] = useState(false)
+
     return (
-        <ResponsiveContainer width='100%' height={300}>
-            <AreaChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="time" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Area type="monotone" dataKey="temperature" stroke="#06b6d4" fill="#06b6d4" />
-                <Area type="monotone" dataKey="humidity" stroke="#8b5cf6" fill="#8b5cf6" />
-                <Area type="monotone" dataKey="pm25" stroke="#ef4444" fill="#ef4444" />
-                <Area type="monotone" dataKey="voc" stroke="#f59e0b" fill="#f59e0b" />
-                <Area type="monotone" dataKey="o3" stroke="#10b981" fill="#10b981" />
-                <Area type="monotone" dataKey="co" stroke="#06b6d4" fill="#06b6d4" />
-                <Area type="monotone" dataKey="co2" stroke="#8b5cf6" fill="#8b5cf6" />
-                <Area type="monotone" dataKey="no2" stroke="#ef4444" fill="#ef4444" />
-            </AreaChart>
-        </ResponsiveContainer>
+        <ChartCard
+            title="Area Chart"
+            dataLength={data.length}
+            isExpanded={isExpanded}
+            onToggleExpand={() => setIsExpanded(!isExpanded)}
+        >
+            <ResponsiveContainer width='100%' height={300}>
+                <AreaChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray='3 3' />
+                    <XAxis dataKey='time' />
+                    <YAxis />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Legend />
+                    {metrics.map((metric) => (
+                        <Area
+                            key={metric.key}
+                            type='monotone'
+                            dataKey={metric.key}
+                            stroke={metric.color}
+                            fill={metric.color}
+                            className={styles.chartLine}
+                        />
+                    ))}
+                </AreaChart>
+            </ResponsiveContainer>
+        </ChartCard>
     )
 } 
