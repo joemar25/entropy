@@ -2,44 +2,46 @@
 
 import type { ChartDataPoint } from '@/types/device'
 
-import ChartCard from '@/components/ui/ChartCard'
-import CustomTooltip from '@/components/ui/CustomTooltip'
+import ChartCard from '@/components/custom/dashboard/chart-card'
+import CustomTooltip from '@/components/custom/dashboard/custom-tooltip'
 
 import { useState } from 'react'
 import { styles } from '@/utils/styles'
 import { metrics } from '@/constants/metric'
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from 'recharts'
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from 'recharts'
 
-interface BarChartProps {
+interface AreaChartProps {
     data: ChartDataPoint[]
 }
 
-export function DashboardBarChart({ data }: BarChartProps) {
+export function DashboardAreaChart({ data }: AreaChartProps) {
     const [isExpanded, setIsExpanded] = useState(false)
 
     return (
         <ChartCard
-            title="Bar Chart"
+            title="Area Chart"
             dataLength={data.length}
             isExpanded={isExpanded}
             onToggleExpand={() => setIsExpanded(!isExpanded)}
         >
             <ResponsiveContainer width='100%' height={300}>
-                <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                <AreaChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
                     <CartesianGrid strokeDasharray='3 3' />
                     <XAxis dataKey='time' />
                     <YAxis />
                     <Tooltip content={<CustomTooltip />} />
                     <Legend />
                     {metrics.map((metric) => (
-                        <Bar
+                        <Area
                             key={metric.key}
+                            type='monotone'
                             dataKey={metric.key}
+                            stroke={metric.color}
                             fill={metric.color}
                             className={styles.chartLine}
                         />
                     ))}
-                </BarChart>
+                </AreaChart>
             </ResponsiveContainer>
         </ChartCard>
     )

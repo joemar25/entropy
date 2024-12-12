@@ -51,7 +51,7 @@ export default function RootLayout({
           </div>
           <Toaster
             position='top-right'
-            richColors
+             richColors
             closeButton
             theme='system'
             className='toaster-override'

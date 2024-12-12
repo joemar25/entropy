@@ -2,8 +2,8 @@
 
 import type { ChartDataPoint } from '@/types/device'
 
-import ChartCard from '@/components/ui/ChartCard'
-import CustomTooltip from '@/components/ui/CustomTooltip'
+import ChartCard from '@/components/custom/dashboard/chart-card'
+import CustomTooltip from '@/components/custom/dashboard/custom-tooltip'
 
 import { styles } from '@/utils/styles'
 import { metrics } from '@/constants/metric'
