@@ -5,11 +5,10 @@ import { HoverBorderGradient } from '@/components/ui/hover-border-gradient'
 import { useDeviceCodeSubmission } from '@/hooks/device/use-device-code-submission'
 
 const HomeContent = () => {
-
     const { deviceCode, setDeviceCode, isLoading, handleSubmit } = useDeviceCodeSubmission()
 
     return (
-        <div className='h-full w-full flex items-center justify-center'>
+        <div className='h-screen w-screen flex items-center justify-center'>
             <div className='space-y-6 w-full max-w-lg px-4'>
                 <h2 className='text-xl font-semibold text-center'>Enter IoT Device Code</h2>
                 <p className='text-center text-muted-foreground'>
